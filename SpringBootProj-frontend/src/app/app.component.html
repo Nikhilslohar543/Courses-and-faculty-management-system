@@ -1,0 +1,7 @@
+<div *ngIf="!isLoggedIn()">
+<router-outlet></router-outlet>
+</div>
+<div *ngIf="isLoggedIn()">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+</div>

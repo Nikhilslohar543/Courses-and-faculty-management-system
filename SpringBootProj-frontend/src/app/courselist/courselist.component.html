@@ -1,0 +1,42 @@
+<div>
+    <div class="container">
+        <button class="btn btn-secondary" (click)="goto()"
+            style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+        <div class="header d-flex align-items-center justify-content-between">
+            <h3><b>Course List :</b></h3>
+
+            <div class="input-group" style="width: fit-content;">
+                <input #searchInput type="search" class="form-control rounded" placeholder="Search with Course id" aria-label="Search"
+                    aria-describedby="search-addon" />
+                <button type="button" class="btn btn-primary"
+                    (click)="Search(searchInput.value)">Search</button>
+            </div>
+
+            <button class="btn btn-primary" (click)="add()"
+            style="margin-top: 20px; margin-bottom: 15px;">+Add course</button>
+        </div>
+        <div *ngIf="!tempdata || tempdata.length === 0" class="alert alert-info">
+            No Courses found. Add some Courses to see them here.
+        </div>
+        <div *ngIf="tempdata.length > 0">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Name</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row" *ngFor="let i of tempdata; let ind = index" (click)="onClick(i.cId)">
+                        <td> {{ ind+1 }} </td>
+                        <td> {{ i.cName }} </td>
+                        <td> {{ i.startDate }} </td>
+                        <td> {{ i.endDate }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

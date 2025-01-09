@@ -1,0 +1,52 @@
+<div>
+    <div class="container">
+        <button class="btn btn-secondary" (click)="goto()" style="margin-top: 80px; margin-bottom: 15px;">
+            Back
+        </button>
+
+        <div class="header d-flex align-items-center justify-content-between">
+            <h3><b>Assign faculties to : {{course.cName}}</b></h3>
+            <button class="btn btn-primary" style="margin-top: 20px; margin-bottom: 15px;"
+                [disabled]="fIds.length === 0" (click)="Assign()">
+                Done
+            </button>
+        </div>
+        <div *ngIf="!faculties || faculties.length === 0" class="alert alert-info">
+            No Faculties found. Add some Faculties to see them here.
+        </div>
+        <div *ngIf="faculties.length > 0">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Assign</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of faculties; let ind = index">
+                        <td> {{ ind + 1 }} </td>
+                        <td> {{ i.fName }}</td>
+                        <td> {{ i.fRole }}</td>
+                        <td
+                            [ngClass]="{ 'text-success': i.status === 'active' || i.status === 'Active', 'text-danger': i.status === 'inactive' || i.status === 'Inactive' }">
+                            {{ i.status }}</td>
+                        <td (change)="onCheckboxChange($event)">
+                            <label class="container">
+                                <input type="checkbox" [value]="i.fId">
+                                <svg viewBox="0 0 64 64" height="2em" width="2em">
+                                    <path
+                                        d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                                        pathLength="575.0541381835938" class="path"></path>
+                                </svg>
+                            </label>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

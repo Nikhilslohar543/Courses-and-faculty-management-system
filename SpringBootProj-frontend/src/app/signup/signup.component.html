@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="card">
+            <div class="card-header justify-content-center">
+                <h3>Sign Up</h3>
+            </div>
+            <div class="card-body">
+                <form #expForm="ngForm" (ngSubmit)="onSignup()">
+                    <div class="input-group form-group mb-4">
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="faculty.fName"
+                            name="fName" #fName="ngModel" required>
+                        <div *ngIf="fName.invalid && fName.touched" class="text-danger">Name is required.</div>
+                    </div>
+
+                    <div class="input-group form-group mb-4">
+                        <input type="text" class="form-control" placeholder="Username" [(ngModel)]="faculty.fUsername"
+                            name="fUsername" required #fUsername="ngModel">
+                        <div *ngIf="fUsername.invalid && fUsername.touched" class="text-danger">
+                            Username is required.
+                        </div>
+                    </div>
+
+                    <div class="input-group form-group mb-4">
+                        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="faculty.fEmail"
+                            name="fEmail" required #fEmail="ngModel">
+                        <div *ngIf="fEmail.invalid && fEmail.touched" class="text-danger">
+                            Valid email is required.
+                        </div>
+                    </div>
+
+                    <div class="input-group form-group mb-4">
+                        <select class="form-control" [(ngModel)]="faculty.gender" name="gender" required
+                            #gender="ngModel">
+                            <option value="" disabled selected>Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div *ngIf="gender.invalid && gender.touched" class="text-danger">
+                            Gender is required.
+                        </div>
+                    </div>
+
+                    <div class="input-group form-group mb-4">
+                        <input type="text" class="form-control" placeholder="Mobile no." [(ngModel)]="faculty.mobno"
+                            name="mobno" pattern="[0-9]{10}" required #mobno="ngModel">
+                        <div *ngIf="mobno.invalid && mobno.touched" class="text-danger">
+                            Enter a valid 10-digit mobile number.
+                        </div>
+                    </div>
+
+                    <div class="input-group form-group mb-4">
+                        <input type="password" class="form-control" placeholder="Password"
+                            [(ngModel)]="faculty.fPassword" name="fPassword" #fPassword="ngModel">
+                        <div *ngIf="fPassword.invalid && fPassword.touched" class="text-danger">
+                            Password must be at least 6 characters long.
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn float-left login_btn" type="submit" [disabled]="expForm.invalid">
+                            Signup
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer">
+                <div style="color: black;" class="d-flex justify-content-center links">
+                    Already have an account?<a [routerLink]="['/home/signin']">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

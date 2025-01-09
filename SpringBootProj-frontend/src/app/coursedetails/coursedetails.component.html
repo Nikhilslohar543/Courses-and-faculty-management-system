@@ -1,0 +1,76 @@
+<div class="container">
+    <button class="btn btn-secondary" (click)="goto()"
+        style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+    <div class="container d-flex justify-content-center flex-column align-items-center" style="margin-top: 20px;">
+        <div class="card mx-auto p-4"
+            style="width: 60%; border: 2px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 class="text-center mb-4" style="cursor: pointer;">
+                <b> Course Details </b>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 30px;">
+
+                <div style="padding-left: 50px;"><strong>Name</strong></div>
+                <div>: {{ course.cName }}</div>
+
+                <div style="padding-left: 50px;"><strong>Description</strong></div>
+                <div>: {{ course.cDescription }}</div>
+
+                <div style="padding-left: 50px;"><strong>Duration</strong></div>
+                <div>: {{ course.cDuration }}</div>
+
+                <div style="padding-left: 50px;"><strong>Start date</strong></div>
+                <div>: {{ course.startDate }}</div>
+
+                <div style="padding-left: 50px;"><strong>Start date</strong></div>
+                <div>: {{ course.endDate }}</div>
+
+            </div>
+
+            <div class="text-center" style="margin-top: 30px;">
+                <button type="button" class="btn btn-outline-primary me-2" (click)="Assign()">Assign
+                    faculty</button>
+                <button type="button" class="btn btn-outline-warning me-2" (click)="Update(course.cId)">Update</button>
+                <button type="button" class="btn btn-outline-danger me-2" (click)="Delete(course.cId)">Delete</button>
+            </div>
+        </div>
+
+
+
+
+        <div class="mt-4 card mx-auto p-4"
+            style="margin-bottom: 20px; width: 60%; border: 2px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 class="text-center mb-4" style="cursor: pointer;">
+                <b>Assigned Faculties</b>
+            </h3>
+
+            <div *ngIf="!faculties || faculties.length === 0" class="alert alert-info"
+                style="width: 90%; align-content: center; margin-left: 20px;">
+                No faculties assigned to this course.
+            </div>
+
+            <table *ngIf="faculties && faculties.length > 0" class="table text-center">
+                <thead>
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let faculty of faculties; let i = index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ faculty.fName }}</td>
+                        <td
+                            [ngClass]="{ 'text-success': faculty.status === 'active' || faculty.status === 'Active', 'text-danger': faculty.status === 'inactive' || faculty.status === 'Inactive' }">
+                            {{ faculty.status }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-danger me-2 btn-sm"
+                                (click)="Unassign(faculty.fId)">✕ Unassign</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

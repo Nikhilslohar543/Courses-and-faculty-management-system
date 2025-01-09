@@ -1,0 +1,37 @@
+<div>
+    <div class="container">
+        <button class="btn btn-secondary" (click)="goto()"
+            style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+        <div class="header d-flex align-items-center justify-content-between">
+            <h3><b>Attendance record :</b></h3>
+            <button class="btn btn-primary" (click)="add()" style="margin-top: 20px; margin-bottom: 15px;">+Mark
+                attendance</button>
+        </div>
+        <div *ngIf="!attendance || attendance.length === 0" class="alert alert-info">
+            No attendance record found. First mark your attendance to see here.
+        </div>
+        <div *ngIf="attendance.length > 0">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row" *ngFor="let i of attendance; let ind = index" (click)="onClick(i.aId)">
+                        <td> {{ ind+1 }} </td>
+                        <td
+                            [ngClass]="{ 'text-success': i.aStatus === 'Present', 'text-danger': i.aStatus === 'Absent' }">
+                            {{i.aStatus}}</td>
+                        <td> {{ i.aDate }}</td>
+                        <td> <button class="btn btn-outline-warning btn-sm">View</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,37 @@
+/* Ensure the navbar stays fixed at the top without hiding content */
+.nav {
+    position: fixed; /* Fixed position ensures the navbar stays at the top */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Makes sure the navbar is above the content */
+    background: linear-gradient(to right, #ff6ec7, #6eebff); /* Gradient background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds depth */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Navbar link styling */
+.nav-link {
+    color: #ffffff;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    border-radius: 5px; /* Rounded edges for links */
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-link.active-tab {
+    background-color: rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+}
+
+/* Add padding-top to body to offset the fixed navbar */
+body {
+    margin-top: 60px; /* Ensure that content starts below the navbar (adjust this value based on navbar height) */
+}
+
+/* Alternatively, if you want to offset individual page containers */
+.page-container {
+    padding-top: 60px; /* Apply padding only on the main content container */
+}

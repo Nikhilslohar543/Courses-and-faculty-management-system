@@ -1,0 +1,35 @@
+<div class="container">
+    <button class="btn btn-secondary" (click)="goto()"
+        style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+    <div class="container d-flex justify-content-center flex-column align-items-center" style="margin-top: 20px;">
+        <div class="card mx-auto p-4"
+            style="width: 60%; border: 2px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 class="text-center mb-4" style="cursor: pointer;">
+                <b>Course Details</b>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 30px;">
+
+                <div style="padding-left: 50px;"><strong>Name</strong></div>
+                <div>: {{ course.cName }}</div>
+
+                <div style="padding-left: 50px;"><strong>Description</strong></div>
+                <div>: {{ course.cDescription }}</div>
+
+                <div style="padding-left: 50px;"><strong>Duration</strong></div>
+                <div>: {{ course.cDuration }}</div>
+
+                <div style="padding-left: 50px;"><strong>Start date</strong></div>
+                <div>: {{ course.startDate }}</div>
+
+                <div style="padding-left: 50px;"><strong>Start date</strong></div>
+                <div>: {{ course.endDate }}</div>
+
+            </div>
+
+            <div class="text-center" style="margin-top: 30px;">
+                <button type="button" class="btn btn-outline-danger me-2"
+                    (click)="unassign(course.cId)">Unassign</button>
+            </div>
+        </div>
+    </div>

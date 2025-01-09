@@ -1,0 +1,32 @@
+<div>
+    <div class="container">
+        <button class="btn btn-secondary" (click)="goto()"
+            style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+        <div class="header d-flex align-items-center justify-content-between">
+            <h3><b>Assigned courses :</b></h3>
+        </div>
+        <div *ngIf="!courses || courses.length === 0" class="alert alert-info">
+            You don't have any assigned courses.
+        </div>
+        <div *ngIf="courses.length > 0">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Sr.no</th>
+                        <th>Name</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row" *ngFor="let i of courses; let ind = index" (click)="onClick(i.cId)">
+                        <td> {{ ind+1 }} </td>
+                        <td> {{ i.cName }} </td>
+                        <td> {{ i.startDate }} </td>
+                        <td> {{ i.endDate }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

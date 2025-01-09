@@ -1,0 +1,36 @@
+.table {
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    overflow: hidden; /* Ensures the rounded corners apply to content */
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    color: #000; /* Text color for readability */
+    padding: 12px 15px; /* Add padding for better spacing */
+    text-align: center; /* Align text to the center */
+    vertical-align: middle; /* Center text vertically */
+}
+
+.table thead {
+    background-color: rgba(0, 123, 255, 0.7); /* Slightly transparent header background */
+    color: #fff; /* White text for contrast */
+    font-weight: bold;
+    text-align: center; /* Center the header text */
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 123, 255, 0.1); /* Light blue highlight on hover */
+    cursor: pointer;
+}
+
+.alert {
+    background: rgba(255, 255, 255, 0.6); /* Consistent transparency for alerts */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for emphasis */
+    border-radius: 10px;
+    color: #000; /* Ensure text contrast */
+    padding: 15px;
+    text-align: center; /* Center the alert text */
+}

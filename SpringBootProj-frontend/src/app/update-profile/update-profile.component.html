@@ -1,0 +1,90 @@
+<div class="container">
+    <section class="vh-100">
+        <div class="header d-flex align-items-center justify-content-between">
+            <button class="btn btn-secondary" (click)="goto()"
+                style="margin-top: 80px; margin-bottom: 15px;">Back</button>
+        </div>
+        <div class="container py-5 h-80">
+            <div class="row d-flex justify-content-center align-items-center h-80">
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                    <div class="card mb-3 position-relative" style="border-radius: .5rem;">
+                        <!-- Cross icon for reset -->
+                        <button class="btn btn-outline-danger btn-sm position-absolute"
+                            style="top: 10px; right: 10px; z-index: 10;" (click)="goto()">
+                            ✕
+                        </button>
+                        <div class="row g-0">
+                            <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center"
+                                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <img *ngIf="faculty.gender === 'Male'"
+                                    src="https://img.icons8.com/?size=100&id=D8VKrTR2XbbX&format=png&color=000000"
+                                    alt="Male Avatar" class="img-fluid my-4" style="width: 80px;" />
+                                <img *ngIf="faculty.gender === 'Female'"
+                                    src="https://img.icons8.com/?size=100&id=loyMZf5PY8h8&format=png&color=000000"
+                                    alt="Female Avatar" class="img-fluid my-4" style="width: 80px;" />
+                                <div class="col-8 mb-3">
+                                    <h6>Name :</h6>
+                                    <input type="text" class="form-control text-center mb-2" [(ngModel)]="faculty.fName"
+                                        placeholder="Full Name"
+                                        style="width: 80%; background-color: transparent; border: 1px solid black; box-shadow: none; color: white;" />
+                                </div>
+                                <div class="col-8 mb-3">
+                                    <h6>Role :</h6>
+                                    <p class="form-control text-center mb-2"
+                                        style="width: 80%; background-color: transparent; border: 1px solid black; box-shadow: none; color: white;">
+                                        {{faculty.fRole}}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h4><b>Update Profile</b></h4>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Username</h6>
+                                            <input type="text" class="form-control" [(ngModel)]="faculty.fUsername"
+                                                placeholder="Username" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Password</h6>
+                                            <input type="text" class="form-control" [(ngModel)]="faculty.fPassword"
+                                                placeholder="Password" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Email</h6>
+                                            <input type="email" class="form-control" [(ngModel)]="faculty.fEmail"
+                                                placeholder="Email" />
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Status</h6>
+                                            <select class="form-control" [(ngModel)]="faculty.status">
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Gender</h6>
+                                            <select class="form-control" [(ngModel)]="faculty.gender">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Phone</h6>
+                                            <input type="tel" class="form-control" [(ngModel)]="faculty.mobno"
+                                                placeholder="Phone Number" />
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-outline-warning" (click)="update()">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

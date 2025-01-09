@@ -1,0 +1,16 @@
+.jumbotron {
+    background: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Inner spacing */
+    color: #000; /* Ensure text is visible */
+}
+
+.jumbotron * {
+    color: inherit !important; /* Ensure text visibility */
+    z-index: 1; /* Ensure content is above the background */
+}
+
+body {
+    background-color: #f4f4f4; /* Optional: To contrast the card background */
+}

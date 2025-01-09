@@ -1,0 +1,36 @@
+<div class="main">
+    <nav class="nav nav-tabs justify-content-between">
+        <div *ngIf="isAdmin()" class="d-flex">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/dashboard/wellcome']" routerLinkActive="active-tab">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/dashboard/users']" routerLinkActive="active-tab">Faculties</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/dashboard/courses']" routerLinkActive="active-tab">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active-tab">Profile</a>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="isFaculty()" class="d-flex">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/dashboard/wellcome']" routerLinkActive="active-tab">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/assignedcourses']" routerLinkActive="active-tab">Assigned courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/attendancelist']" routerLinkActive="active-tab">Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active-tab">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

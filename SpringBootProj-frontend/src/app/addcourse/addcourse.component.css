@@ -1,0 +1,16 @@
+.card {
+    width: 100%; /* Makes the card responsive */
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease; /* Smooth transition effect */
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.8), /* Neon blue glow on hover */
+                0 0 30px rgba(0, 200, 255, 0.6),
+                0 0 40px rgba(0, 200, 255, 0.4);
+    /* font-size: large; */
+    font-weight: bold;
+}
+
+label{
+    font-weight: bolder;
+}
+

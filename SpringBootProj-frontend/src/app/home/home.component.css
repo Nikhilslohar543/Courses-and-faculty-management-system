@@ -1,0 +1,13 @@
+.card {
+    height: auto;
+    margin-top: 15%;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    padding: 20px;
+    -ms-flex-align: center;
+}
+
+.card-header h5 {
+    color: black;
+}
