@@ -82,7 +82,7 @@ Effortlessly manage courses and faculty profiles with this intuitive web applica
 
   - The first user, created manually with administrative privileges, should be used only when absolutely necessary, such as reverting an admin role back to a faculty role.
 
-  - If you want to assign courses to faculties then you need to add the courses first then assign it to the faculty members.
+  - If you want to assign courses to faculties then you need to add the courses first then assign faculties to it.
 
   - Remeber the courses will assign only to the faculty members not to admins.
 
