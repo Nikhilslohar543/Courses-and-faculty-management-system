@@ -84,7 +84,7 @@ Effortlessly manage courses and faculty profiles with this intuitive web applica
 
   - If you want to assign courses to faculties then you need to add the courses first then assign faculties to it.
 
-  - Remeber the courses will assign only to the faculty members not to admins.
+  - Courses are assigned exclusively to faculty members and cannot be allocated to admins.
 
 ### Contribution
 
