@@ -74,7 +74,7 @@ Effortlessly manage courses and faculty profiles with this intuitive web applica
 
 ### Important tips
 
-  - Create one user manually in database (this becomes an administrator that can handle all users such as admins/faculties).
+  - REQUIRED : Create one user manually in database (this becomes an administrator that can handle all users such as admins/faculties).
   
   - Once an admin elevates a faculty member to an admin role, they cannot revoke or revert their access back to a faculty role. 
 
