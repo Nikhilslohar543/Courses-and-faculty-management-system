@@ -11,17 +11,17 @@ Effortlessly manage courses and faculty profiles with this intuitive web applica
 - Course Management: Add, edit, delete, and view courses easily.
 - Faculty Profiles: Manage faculty details, including personal information and assigned courses.
 - Role-Based Access Control (RBAC): Secure access for admins and faculty with tailored permissions.
-- Attendance Tracking: Record and monitor daily attendance for courses.
+- Attendance Tracking: Record and monitor daily attendance.
 
 ## Technologies Used
 
 - **Backend:**
-  - Java: JDK 17 or higher
+  - Java
   - Spring Boot: 3.2.4
   - MySQL Database: Version 18 or compatible
 
 - **Frontend:**
-  - Angular CLI: 16.x or higher
+  - Angular : version 16
 
 - **General Tools**
   - IDE for Backend: IntelliJ IDEA, Eclipse, or any preferred Java IDE.
