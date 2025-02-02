@@ -71,6 +71,21 @@ Effortlessly manage courses and faculty profiles with this intuitive web applica
        ```
   - 4. Open the application in your browser at http://localhost:4200.
 
+
+### Important tips
+
+  - Create one user manually in database (this becomes an administrator that can handle all users such as admins/faculties).
+  
+  - Once an admin elevates a faculty member to an admin role, they cannot revoke or revert their access back to a faculty role. 
+
+  - Therefore, the first user, who is created manually with admin rights, is essential for ensuring proper role management and system integrity.
+
+  - The first user, created manually with administrative privileges, should be used only when absolutely necessary, such as reverting an admin role back to a faculty role.
+
+  - If you want to assign courses to faculties then you need to add the courses first then assign it to the faculty members.
+
+  - Remeber the courses will assign only to the faculty members not to admins.
+
 ### Contribution
 
   - Contributions are welcome! Feel free to fork the repository and create a pull request.
