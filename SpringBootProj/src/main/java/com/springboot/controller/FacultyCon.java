@@ -74,7 +74,7 @@ public class FacultyCon {
 	public ResponseEntity<?> unassignCourses(@PathVariable int fId, @PathVariable int cId){
 		
 		return fSer.unassignCourses(fId, cId);
-	}						
+	}
 	
 	@PostMapping("/faculty/signup")
 	public ResponseEntity<?> signup(@RequestBody Faculty faculty){

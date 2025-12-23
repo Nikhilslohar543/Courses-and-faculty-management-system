@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.springboot.DAO.AttendanceDao;
-import com.springboot.DAO.FacultyDao;
+import com.springboot.Repository.AttendanceDao;
+import com.springboot.Repository.FacultyDao;
 import com.springboot.Entity.Attendance;
 import com.springboot.Entity.Faculty;
 

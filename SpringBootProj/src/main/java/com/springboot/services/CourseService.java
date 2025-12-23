@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.springboot.DAO.CourseAssignmentDao;
-import com.springboot.DAO.CoursesDao;
+import com.springboot.Repository.CourseAssignmentDao;
+import com.springboot.Repository.CoursesDao;
 import com.springboot.Entity.CourseAssignment;
 import com.springboot.Entity.Courses;
 import com.springboot.Entity.Faculty;

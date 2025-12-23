@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.coyote.Response;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.springboot.DAO.CourseAssignmentDao;
-import com.springboot.DAO.CoursesDao;
-import com.springboot.DAO.FacultyDao;
+import com.springboot.Repository.CourseAssignmentDao;
+import com.springboot.Repository.CoursesDao;
+import com.springboot.Repository.FacultyDao;
 import com.springboot.Entity.CourseAssignment;
 import com.springboot.Entity.Courses;
 import com.springboot.Entity.Faculty;
@@ -20,6 +22,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class FacultyService {
+
+    ModelMapper modelMapper = new ModelMapper();
 
 	@Autowired
 	private FacultyDao fDao;
@@ -32,9 +36,14 @@ public class FacultyService {
 
 	public ResponseEntity<?> getFaculty() {
 
-		List<Faculty> existing = fDao.findAll();
+        try{
+            List<Faculty> existing = fDao.findAll();
 
-		return ResponseEntity.ok(existing);
+            return new ResponseEntity<>(existing, HttpStatus.OK);
+        }catch (RuntimeException r){
+            throw new RuntimeException("Failed to get faculty data",r);
+        }
+
 	}
 
 	public ResponseEntity<?> getFacultyById(int fId) {
