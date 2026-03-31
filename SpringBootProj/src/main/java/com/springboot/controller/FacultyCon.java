@@ -20,22 +20,31 @@ import com.springboot.Entity.Faculty;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Map;
+
 @RestController
 @CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api")
 public class FacultyCon {
 
-	@Autowired
-	private FacultyService facultyService;
-	
-	@GetMapping("/faculty")
-	public ResponseEntity<?> getFaculty(){
-		
-		return facultyService.getFaculty();
-	}
+    @Autowired
+    private FacultyService facultyService;
 
-	@GetMapping("/faculty/{fId}")
-	public ResponseEntity<?> getFacultyById(@PathVariable int fId){
+    @GetMapping("/faculty")
+    public ResponseEntity<?> getFaculty(@RequestBody Map<String, Object> filter) {
+
+        Map<String, Object> data = facultyService.getAllFaculties(filter);
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Faculty fetched successfully")
+                        .data(data)
+                        .build()
+        );
+    }
+
+    @GetMapping("/faculty/{fId}")
+    public ResponseEntity<?> getFacultyById(@PathVariable int fId) {
 
         FacultyDTO data = facultyService.getFacultyById(fId);
 //        return ResponseEntity.ok(APIResponse);
@@ -46,57 +55,64 @@ public class FacultyCon {
                         .data(data)
                         .build()
         );
-	}
-	
-	@GetMapping("/faculty/ByUsername/{fUsername}")
-	public ResponseEntity<?> getFacultyByUsername(@PathVariable String fUsername){
-		System.out.println(fUsername);
-		return facultyService.getFacultyByUsername(fUsername);
-	}
-	
-	@PostMapping("/faculty")
-	public ResponseEntity<?> addFaculty(@RequestBody Faculty faculty){
-		
-		return facultyService.addFaculty(faculty);
-	}
-	
-	@PutMapping("/faculty/{fId}")
-	public ResponseEntity<?> updateFaculty(@PathVariable int fId,@RequestBody Faculty faculty){
-		
-		return facultyService.updateFaculty(fId,faculty);
-	}
-	
-	@DeleteMapping("/faculty/{fId}")
-	public ResponseEntity<?> deleteFaculty(@PathVariable int fId){
-		
-		return facultyService.deleteFaculty(fId);
-	}
+    }
 
-	
-	@PutMapping("/faculty/assign/{cId}")
-	public ResponseEntity<?> assignCourseToFaculty(@RequestParam int[] fIds, @PathVariable int cId) {
+    @GetMapping("/faculty/ByUsername/{fUsername}")
+    public ResponseEntity<?> getFacultyByUsername(@PathVariable String fUsername) {
 
-	    return facultyService.assignCourseToFaculty(fIds, cId);
-	}
+        FacultyDTO data = facultyService.getFacultyByUsername(fUsername);
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Faculty fetched successfully")
+                        .data(data)
+                        .build()
+        );
+    }
 
-	
-	@PutMapping("/faculty/unassign/{fId}/{cId}")
-	public ResponseEntity<?> unassignCourses(@PathVariable int fId, @PathVariable int cId){
-		
-		return facultyService.unassignCourses(fId, cId);
-	}
-	
-	@PostMapping("/faculty/signup")
-	public ResponseEntity<?> signup(@RequestBody Faculty faculty){
-		
-		return facultyService.signup(faculty);
-	}
-	
-	@PostMapping("/faculty/signin")
-	public ResponseEntity<?> signin(@RequestBody Faculty faculty, HttpSession session){
-		
-		return facultyService.signin(faculty,session);
-	}
-	
+    @PostMapping("/faculty")
+    public ResponseEntity<?> addFaculty(@RequestBody Faculty faculty) {
+
+        return facultyService.addFaculty(faculty);
+    }
+
+    @PutMapping("/faculty/{fId}")
+    public ResponseEntity<?> updateFaculty(@PathVariable int fId, @RequestBody Faculty faculty) {
+
+        return facultyService.updateFaculty(fId, faculty);
+    }
+
+    @DeleteMapping("/faculty/{fId}")
+    public ResponseEntity<?> deleteFaculty(@PathVariable int fId) {
+
+        return facultyService.deleteFaculty(fId);
+    }
+
+
+    @PutMapping("/faculty/assign/{cId}")
+    public ResponseEntity<?> assignCourseToFaculty(@RequestParam int[] fIds, @PathVariable int cId) {
+
+        return facultyService.assignCourseToFaculty(fIds, cId);
+    }
+
+
+    @PutMapping("/faculty/unassign/{fId}/{cId}")
+    public ResponseEntity<?> unassignCourses(@PathVariable int fId, @PathVariable int cId) {
+
+        return facultyService.unassignCourses(fId, cId);
+    }
+
+    @PostMapping("/faculty/signup")
+    public ResponseEntity<?> signup(@RequestBody Faculty faculty) {
+
+        return facultyService.signup(faculty);
+    }
+
+    @PostMapping("/faculty/signin")
+    public ResponseEntity<?> signin(@RequestBody Faculty faculty, HttpSession session) {
+
+        return facultyService.signin(faculty, session);
+    }
+
 }
 								

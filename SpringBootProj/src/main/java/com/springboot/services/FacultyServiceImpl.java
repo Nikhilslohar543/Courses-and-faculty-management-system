@@ -1,10 +1,14 @@
 package com.springboot.services;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.springboot.Common.CustomQuerySpecification;
 import com.springboot.DTO.FacultyDTO;
+import com.springboot.Mappers.FacultyMapper;
 import com.springboot.Responses.CFMSException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,32 +39,40 @@ public class FacultyServiceImpl implements FacultyService {
     @Autowired
     private CourseAssignmentDao caDao;
 
-    public ResponseEntity<?> getFaculty() {
+    @Autowired
+    private FacultyMapper facultyMapper;
 
-        try {
-            List<Faculty> existing = fDao.findAll();
+    public Map<String, Object> getAllFaculties(Map<String, Object> filter) {
 
-            return new ResponseEntity<>(existing, HttpStatus.OK);
-        } catch (RuntimeException r) {
-            throw new RuntimeException("Failed to get faculty data", r);
-        }
+        CustomQuerySpecification<Faculty> specification = CustomQuerySpecification.getInstance(filter);
+        List<Faculty> facultyList = fDao.findAll(specification);
+
+        List<FacultyDTO> list = facultyList.stream()
+                .map(f -> facultyMapper.toDTO(f)).collect(Collectors.toList());
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("data", list);
+        return data;
 
     }
 
     public FacultyDTO getFacultyById(int fId) {
-        FacultyDTO dto = new FacultyDTO();
         Faculty exist = fDao.findById(fId).orElseThrow(() -> new CFMSException("Faculty not found!", HttpStatus.NOT_FOUND));
+
+        FacultyDTO dto = facultyMapper.toDTO(exist);
+
         return dto;
     }
 
-    public ResponseEntity<?> getFacultyByUsername(String fUsername) {
+    public FacultyDTO getFacultyByUsername(String fUsername) {
 
         Faculty faculty = fDao.findByfUsername(fUsername);
-
+        FacultyDTO dto;
         if (faculty != null) {
-            return ResponseEntity.ok(faculty);
+            dto = facultyMapper.toDTO(faculty);
+            return dto;
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+            throw new CFMSException("Faculty not found", HttpStatus.NOT_FOUND);
         }
     }
 

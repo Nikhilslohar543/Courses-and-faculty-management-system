@@ -6,6 +6,6 @@ import lombok.Data;
 public class CourseAssignmentDTO {
 
     private int facultyId;
-    private int courseId;
+    private int coursesId;
 
 }

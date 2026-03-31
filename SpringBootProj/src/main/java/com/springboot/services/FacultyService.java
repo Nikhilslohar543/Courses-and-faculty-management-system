@@ -5,15 +5,18 @@ import com.springboot.Entity.Faculty;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Map;
+import java.util.Objects;
+
 public interface FacultyService {
 
-    ResponseEntity<?> getFaculty();
+    Map<String, Object> getAllFaculties(Map<String, Object> filter);
 
 
     FacultyDTO getFacultyById(int fId);
 
 
-    ResponseEntity<?> getFacultyByUsername(String fUsername);
+    FacultyDTO getFacultyByUsername(String fUsername);
 
 
     ResponseEntity<?> addFaculty(Faculty faculty);
