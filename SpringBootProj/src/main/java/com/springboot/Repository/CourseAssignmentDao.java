@@ -13,13 +13,13 @@ import com.springboot.Entity.Faculty;
 @Repository
 public interface CourseAssignmentDao extends JpaRepository<CourseAssignment, Integer> {
 
-    boolean existsByCouIdAndFacId(Courses couId, Faculty facId);
+    boolean existsByCoursesIdAndFacultyId(Courses couId, Faculty facId);
 
-    Optional<CourseAssignment> getByCouIdAndFacId(Courses couId, Faculty facId);
+    Optional<CourseAssignment> getByCoursesIdAndFacultyId(Courses couId, Faculty facId);
         
-    List<CourseAssignment> findByFacId_fId(int fId);
+    List<CourseAssignment> findByFacultyId_fId(int fId);
     
-    List<CourseAssignment> findByCouId(Courses course);
+    List<CourseAssignment> findByCoursesId(Courses course);
     
 }
 

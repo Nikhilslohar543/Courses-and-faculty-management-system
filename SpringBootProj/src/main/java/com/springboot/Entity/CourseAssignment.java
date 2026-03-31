@@ -13,69 +13,67 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class CourseAssignment {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "facultyId")
-	Faculty facId;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "facultyId")
+    Faculty facultyId;
 
-	@ManyToOne
-	@JsonBackReference
-	@JoinColumn(name = "courseId")
-	Courses couId;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "courseId")
+    Courses coursesId;
 
-	
-	
-	public CourseAssignment(Faculty facId, Courses couId) {
-		super();
-		this.facId = facId;
-		this.couId = couId;
-	}
 
-	public CourseAssignment(int id, Faculty facId, Courses couId) {
-		super();
-		this.id = id;
-		this.facId = facId;
-		this.couId = couId;
-	}
+    public CourseAssignment(Faculty facultyId, Courses coursesId) {
+        super();
+        this.facultyId = facultyId;
+        this.coursesId = coursesId;
+    }
 
-	public CourseAssignment() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public CourseAssignment(int id, Faculty facultyId, Courses coursesId) {
+        super();
+        this.id = id;
+        this.facultyId = facultyId;
+        this.coursesId = coursesId;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public CourseAssignment() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Faculty getFacId() {
-		return facId;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setFacId(Faculty facId) {
-		this.facId = facId;
-	}
+    public Faculty getFacultyId() {
+        return facultyId;
+    }
 
-	public Courses getCouId() {
-		return couId;
-	}
+    public void setFacultyId(Faculty facultyId) {
+        this.facultyId = facultyId;
+    }
 
-	public void setCouId(Courses couId) {
-		this.couId = couId;
-	}
+    public Courses getCoursesId() {
+        return coursesId;
+    }
 
-	@Override
-	public String toString() {
-		return "CourseAssignment [id=" + id + ", facId=" + facId + ", couId=" + couId + "]";
-	}
-	
-	
-	
+    public void setCoursesId(Courses coursesId) {
+        this.coursesId = coursesId;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseAssignment [id=" + id + ", facId=" + facultyId + ", couId=" + coursesId + "]";
+    }
+
+
 }

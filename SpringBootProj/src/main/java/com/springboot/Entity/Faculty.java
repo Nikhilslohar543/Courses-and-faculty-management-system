@@ -36,11 +36,11 @@ public class Faculty {
     String fPassword;
     String status;
 
-    @OneToMany(mappedBy = "facId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "facultyId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     List<CourseAssignment> courseAssignment;
 
-    @OneToMany(mappedBy = "fId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "facultyId", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     List<Attendance> attendance;
 

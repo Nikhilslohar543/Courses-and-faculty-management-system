@@ -28,7 +28,7 @@ public class AttendanceSer {
 
 		if (exist.isPresent()) {
 
-			List<Attendance> list = aDao.findAttendanceByFacultyId(fId);
+			List<Attendance> list = aDao.findByFacultyId_fId(fId);
 			return list;
 
 		} else {
@@ -64,7 +64,7 @@ public class AttendanceSer {
 		if (exist.isPresent() && attendance != null) {
 			Faculty fac = exist.get();
 
-			attendance.setfId(fac);
+			attendance.setFacultyId(fac);
 			aDao.save(attendance);
 			return ResponseEntity.ok("Attendance marked.");
 
@@ -90,7 +90,7 @@ public class AttendanceSer {
 				attend.setaStatus(attendance.getaStatus());
 				attend.setaDate(attendance.getaDate());
 				attend.setaDescription(attendance.getaDescription());
-				attend.setfId(faculty);
+				attend.setFacultyId(faculty);
 
 				aDao.save(attend);
 				return ResponseEntity.ok("Attendance updated.");

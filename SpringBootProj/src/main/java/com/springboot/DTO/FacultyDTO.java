@@ -1,6 +1,5 @@
 package com.springboot.DTO;
 
-import com.springboot.Entity.Attendance;
 import com.springboot.Entity.CourseAssignment;
 import lombok.Data;
 
@@ -14,10 +13,10 @@ public class FacultyDTO {
     private String fEmail;
     private String fRole;
     private String fGender;
-    private long mobno;
+    private long mobNo;
     private String fUsername;
     private String status;
-    private List<CourseAssignment> courseAssignment;
-    private List<Attendance> attendance;
+    private List<CourseAssignmentDTO> courseAssignments;
+    private List<AttendanceDTO> attendanceDTOS;
 
 }

@@ -33,18 +33,18 @@ public class CourseService {
 		
 		Courses course = cDao.findById(cId).orElseThrow(() -> new RuntimeException("Course not found"));
 
-	    List<CourseAssignment> assignments = caDao.findByCouId(course);
+	    List<CourseAssignment> assignments = caDao.findByCoursesId(course);
 
 	    return assignments.stream()
-	                      .map(CourseAssignment::getFacId)
+	                      .map(CourseAssignment::getFacultyId)
 	                      .collect(Collectors.toList());
 	}
 	
 	public List<Courses> getCourseByfId(int fId) {
-        List<CourseAssignment> assignments = caDao.findByFacId_fId(fId);
+        List<CourseAssignment> assignments = caDao.findByFacultyId_fId(fId);
 
         return assignments.stream()
-                .map(CourseAssignment::getCouId)
+                .map(CourseAssignment::getCoursesId)
                 .collect(Collectors.toList());
     }
 

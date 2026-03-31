@@ -25,28 +25,28 @@ public class Attendance {
 	@ManyToOne
 	@JoinColumn(name = "facultyId")
 	@JsonBackReference
-	Faculty fId;
+	Faculty facultyId;
 
 	public Attendance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attendance(int aId, String aStatus, LocalDate aDate, String aDescription, Faculty fId) {
+	public Attendance(int aId, String aStatus, LocalDate aDate, String aDescription, Faculty facultyId) {
 		super();
 		this.aId = aId;
 		this.aStatus = aStatus;
 		this.aDate = aDate;
 		this.aDescription = aDescription;
-		this.fId = fId;
+		this.facultyId = facultyId;
 	}
 
-	public Attendance(String aStatus, LocalDate aDate, String aDescription, Faculty fId) {
+	public Attendance(String aStatus, LocalDate aDate, String aDescription, Faculty facultyId) {
 		super();
 		this.aStatus = aStatus;
 		this.aDate = aDate;
 		this.aDescription = aDescription;
-		this.fId = fId;
+		this.facultyId = facultyId;
 	}
 
 	public int getaId() {
@@ -81,18 +81,18 @@ public class Attendance {
 		this.aDescription = aDescription;
 	}
 
-	public Faculty getfId() {
-		return fId;
+	public Faculty getFacultyId() {
+		return facultyId;
 	}
 
-	public void setfId(Faculty fId) {
-		this.fId = fId;
+	public void setFacultyId(Faculty facultyId) {
+		this.facultyId = facultyId;
 	}
 
 	@Override
 	public String toString() {
 		return "Attendance [aId=" + aId + ", aStatus=" + aStatus + ", aDate=" + aDate + ", aDescription=" + aDescription
-				+ ", fId=" + fId + "]";
+				+ ", fId=" + facultyId + "]";
 	}
 
 }

@@ -26,7 +26,7 @@ public class Courses {
 	LocalDate startDate;
 	LocalDate endDate;
 
-	@OneToMany(mappedBy = "couId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "coursesId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JsonIgnore
 	List<CourseAssignment> courseAssignment;
 
