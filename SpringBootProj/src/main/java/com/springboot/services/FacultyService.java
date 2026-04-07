@@ -19,19 +19,19 @@ public interface FacultyService {
     FacultyDTO getFacultyByUsername(String fUsername);
 
 
-    ResponseEntity<?> addFaculty(Faculty faculty);
+    FacultyDTO addFaculty(Faculty faculty);
 
 
-    ResponseEntity<?> updateFaculty(int fId, Faculty faculty);
+    FacultyDTO updateFaculty(int fId, Faculty faculty);
 
 
-    ResponseEntity<?> deleteFaculty(int fId);
+    String deleteFaculty(int fId);
 
 
-    ResponseEntity<?> assignCourseToFaculty(int[] fIds, int cId);
+    String assignCourseToFaculty(int[] fIds, int cId);
 
 
-    ResponseEntity<?> unassignCourses(int fId, int cId);
+    String unassignCourses(int fId, int cId);
 
 
     ResponseEntity<?> signup(Faculty faculty);

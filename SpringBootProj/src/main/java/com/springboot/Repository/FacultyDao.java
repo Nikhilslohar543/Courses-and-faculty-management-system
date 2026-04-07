@@ -6,9 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import com.springboot.Entity.Faculty;
 
+import java.util.Optional;
+
 @Repository
 public interface FacultyDao extends JpaRepository<Faculty, Integer>, JpaSpecificationExecutor<Faculty> {
 
-	Faculty findByfUsername(String fUsername);
+	Optional<Faculty> findByfUsername(String fUsername);
 
 }

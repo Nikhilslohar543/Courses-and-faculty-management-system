@@ -72,34 +72,34 @@ public class FacultyCon {
 
     @PostMapping("/faculty")
     public ResponseEntity<?> addFaculty(@RequestBody Faculty faculty) {
-
-        return facultyService.addFaculty(faculty);
+        FacultyDTO data = facultyService.addFaculty(faculty);
+        return ResponseEntity.ok(APIResponse.builder().success(true).msg("Faculty saved successfully").data(data).build());
     }
 
     @PutMapping("/faculty/{fId}")
     public ResponseEntity<?> updateFaculty(@PathVariable int fId, @RequestBody Faculty faculty) {
-
-        return facultyService.updateFaculty(fId, faculty);
+        FacultyDTO data = facultyService.updateFaculty(fId, faculty);
+        return ResponseEntity.ok(APIResponse.builder().success(true).msg("Data fetched successfully").data(data).build());
     }
 
     @DeleteMapping("/faculty/{fId}")
     public ResponseEntity<?> deleteFaculty(@PathVariable int fId) {
-
-        return facultyService.deleteFaculty(fId);
+        String msg = facultyService.deleteFaculty(fId);
+        return ResponseEntity.ok(APIResponse.builder().success(true).msg(msg).build());
     }
 
 
     @PutMapping("/faculty/assign/{cId}")
     public ResponseEntity<?> assignCourseToFaculty(@RequestParam int[] fIds, @PathVariable int cId) {
-
-        return facultyService.assignCourseToFaculty(fIds, cId);
+        String msg = facultyService.assignCourseToFaculty(fIds, cId);
+        return ResponseEntity.ok(APIResponse.builder().success(true).msg(msg).build());
     }
 
 
     @PutMapping("/faculty/unassign/{fId}/{cId}")
     public ResponseEntity<?> unassignCourses(@PathVariable int fId, @PathVariable int cId) {
-
-        return facultyService.unassignCourses(fId, cId);
+        String msg = facultyService.unassignCourses(fId, cId);
+        return ResponseEntity.ok(APIResponse.builder().success(true).msg(msg).build());
     }
 
     @PostMapping("/faculty/signup")

@@ -66,119 +66,68 @@ public class FacultyServiceImpl implements FacultyService {
 
     public FacultyDTO getFacultyByUsername(String fUsername) {
 
-        Faculty faculty = fDao.findByfUsername(fUsername);
-        FacultyDTO dto;
-        if (faculty != null) {
-            dto = facultyMapper.toDTO(faculty);
-            return dto;
-        } else {
-            throw new CFMSException("Faculty not found", HttpStatus.NOT_FOUND);
-        }
+        Faculty faculty = fDao.findByfUsername(fUsername)
+                .orElseThrow(() -> new CFMSException("Faculty not found", HttpStatus.NOT_FOUND));
+        FacultyDTO dto = facultyMapper.toDTO(faculty);
+
+        return dto;
     }
 
-    public ResponseEntity<?> addFaculty(Faculty faculty) {
+    public FacultyDTO addFaculty(Faculty faculty) {
 
-        Optional<Faculty> fexist = fDao.findById(faculty.getfId());
+        Faculty exist;
 
-        if (fexist.isEmpty()) {
-
-            if (fDao.findByfUsername(faculty.getfUsername()) == null) {
-
-                fDao.save(faculty);
-                return ResponseEntity.ok("New user added with " + faculty.getfUsername() + " username.");
-
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username already exists!");
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid credentials!");
+        if (faculty.getfUsername() != null) {
+            exist = fDao.findByfUsername(faculty.getfUsername())
+                    .orElseThrow(() -> new CFMSException("Faculty with same name exists!", HttpStatus.FOUND));
         }
+
+        Faculty savedFaculty = fDao.save(faculty);
+        FacultyDTO savedFacultyDTO = facultyMapper.toDTO(savedFaculty);
+
+        return savedFacultyDTO;
+    }
+
+    public FacultyDTO updateFaculty(int fId, Faculty faculty) {
+
+        Faculty existing = fDao.findById(fId)
+                .orElseThrow(() -> new CFMSException("Faculty not found", HttpStatus.NOT_FOUND));
+
+        Faculty facultyWithSameUsername = fDao.findByfUsername(faculty.getfUsername())
+                .orElseThrow(() -> new CFMSException("Username already taken!", HttpStatus.FOUND));
+
+        existing.setfId(faculty.getfId());
+        existing.setfName(faculty.getfName());
+        existing.setfEmail(faculty.getfEmail());
+        existing.setfRole(faculty.getfRole());
+        existing.setGender(faculty.getGender());
+        existing.setMobno(faculty.getMobno());
+        existing.setfUsername(faculty.getfUsername());
+        existing.setfPassword(faculty.getfPassword());
+        existing.setStatus(faculty.getStatus());
+
+        Faculty updatedFaculty = fDao.save(faculty);
+        FacultyDTO updatedFacultyDTO = facultyMapper.toDTO(updatedFaculty);
+
+        return updatedFacultyDTO;
 
     }
 
-    public ResponseEntity<?> updateFaculty(int fId, Faculty faculty) {
+    public String deleteFaculty(int fId) {
 
-        Optional<Faculty> exist = fDao.findById(fId);
+        Faculty exist = fDao.findById(fId)
+                .orElseThrow(() -> new CFMSException("Faculty not found", HttpStatus.NOT_FOUND));
 
-        if (exist.isPresent()) {
+        fDao.delete(exist);
 
-            Faculty newFaculty = exist.get();
-
-            Faculty facultyWithSameUsername = fDao.findByfUsername(faculty.getfUsername());
-            if (facultyWithSameUsername != null && facultyWithSameUsername.getfId() != fId) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists!");
-            }
-            newFaculty.setfId(faculty.getfId());
-            newFaculty.setfName(faculty.getfName());
-            newFaculty.setfEmail(faculty.getfEmail());
-            newFaculty.setfRole(faculty.getfRole());
-            newFaculty.setGender(faculty.getGender());
-            newFaculty.setMobno(faculty.getMobno());
-            newFaculty.setfUsername(faculty.getfUsername());
-            newFaculty.setfPassword(faculty.getfPassword());
-            newFaculty.setStatus(faculty.getStatus());
-
-            fDao.save(newFaculty);
-
-            return ResponseEntity.ok("Faculty details updated.");
-
-        } else {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Faculty not found!");
-        }
+        return "Faculty deleted successfully";
     }
 
-    public ResponseEntity<?> deleteFaculty(int fId) {
+    public String assignCourseToFaculty(int fIds[], int cId) {
 
-        Optional<Faculty> exist = fDao.findById(fId);
-        if (exist.isPresent()) {
+        Courses course = cDao.findById(cId)
+                .orElseThrow(() -> new CFMSException("Course not found", HttpStatus.NOT_FOUND));
 
-            Faculty faculty = exist.get();
-            fDao.delete(faculty);
-
-            return ResponseEntity.ok("faculty deleted");
-        } else {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("faculty not found!");
-        }
-    }
-
-//	public ResponseEntity<?> assignCourseToFaculty(int fId, int cId) {
-//
-//		Optional<Courses> cexist = cDao.findById(cId);
-//		Optional<Faculty> fexist = fDao.findById(fId);
-//
-//		if (cexist.isPresent() && fexist.isPresent()) {
-//			Courses course = cexist.get();
-//			Faculty faculty = fexist.get();
-//
-//			if (caDao.existsByCouIdAndFacId(course, faculty)) {
-//				return ResponseEntity.status(HttpStatus.CONFLICT).body("Course is already assigned to faculty!");
-//			} else {
-//				CourseAssignment assign = new CourseAssignment();
-//
-//				assign.setCouId(course);
-//				assign.setFacId(faculty);
-//
-//				caDao.save(assign);
-//
-//				return ResponseEntity.ok("Course assigned to faculty.");
-//			}
-//
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Either the course or the faculty does not exist.");
-//		}
-//
-//	}
-
-    public ResponseEntity<?> assignCourseToFaculty(int fIds[], int cId) {
-
-        Optional<Courses> cexist = cDao.findById(cId);
-        if (!cexist.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course does not exist.");
-        }
-
-        Courses course = cexist.get();
         for (int fId : fIds) {
             Optional<Faculty> fexist = fDao.findById(fId);
 
@@ -195,14 +144,14 @@ public class FacultyServiceImpl implements FacultyService {
                     caDao.save(assign);
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Faculty with ID: " + fId + " does not exist.");
+                throw new CFMSException("Faculty with ID " + fexist.get().getfId() + " does not exists!");
             }
         }
-        return ResponseEntity.ok("Course assigned to selected faculties (excluding already assigned ones).");
+        return "Course assigned to selected faculties (excluding already assigned ones).";
 
     }
 
-    public ResponseEntity<?> unassignCourses(int fId, int cId) {
+    public String unassignCourses(int fId, int cId) {
 
         Optional<Courses> cexist = cDao.findById(cId);
         Optional<Faculty> fexist = fDao.findById(fId);
@@ -218,16 +167,14 @@ public class FacultyServiceImpl implements FacultyService {
 
                 caDao.delete(unassign);
 
-                return ResponseEntity
-                        .ok(Map.of("success", true, "message", "Course has been unassigned from faculty."));
+                return "Course has been unassigned from faculty.";
 
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Course is not assigned to spcified faculty!");
+                throw new CFMSException("Course is not assigned to spcified faculty!", HttpStatus.PRECONDITION_FAILED);
             }
 
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Either the course or the faculty does not exist.");
+            throw new CFMSException("Either the course or the faculty does not exist.", HttpStatus.NOT_FOUND);
         }
 
     }
@@ -251,7 +198,8 @@ public class FacultyServiceImpl implements FacultyService {
 
     public ResponseEntity<?> signin(Faculty faculty, HttpSession session) {
 
-        Faculty existing = fDao.findByfUsername(faculty.getfUsername());
+        Faculty existing = fDao.findByfUsername(faculty.getfUsername())
+                .orElseThrow(() -> new CFMSException("Faculty not found!", HttpStatus.NOT_FOUND));
 
         if (existing != null && existing.getfUsername().equals(faculty.getfUsername())
                 && existing.getfPassword().equals(faculty.getfPassword())) {
