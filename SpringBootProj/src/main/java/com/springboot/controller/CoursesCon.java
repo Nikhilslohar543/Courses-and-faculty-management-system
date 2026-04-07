@@ -1,68 +1,128 @@
 package com.springboot.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import com.springboot.Entity.CourseAssignment;
+import com.springboot.Entity.Faculty;
+import com.springboot.Responses.APIResponse;
+import com.springboot.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.springboot.DTO.CourseDTO;
 import com.springboot.Entity.Courses;
-import com.springboot.Entity.Faculty;
-import com.springboot.services.CourseService;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api")
 public class CoursesCon {
 
-	@Autowired
-	private CourseService cSer;
+    @Autowired
+    private CourseService cSer;
 
-	@GetMapping("/course")
-	public List<Courses> getAllCourses(){
-		
-		return cSer.getAllCourses();
-	}
-	
-	@GetMapping("/course/faculty/{cId}")
-	public List<Faculty> getFacultyByCourseId(@PathVariable int cId){
-		return cSer.getFacultyByCourseId(cId);
-	}
-	
-	@GetMapping("/course/{fId}")
-    public List<Courses> getCourseByfId(@PathVariable int fId) {
-        return cSer.getCourseByfId(fId);
+    // Get All Courses (with filter like faculty)
+    @GetMapping("/course")
+    public ResponseEntity<?> getAllCourses(@RequestBody Map<String, Object> filter) {
+
+        Map<String, Object> data = cSer.getAllCourses(filter);
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Courses fetched successfully")
+                        .data(data)
+                        .build()
+        );
     }
-	
-	@GetMapping("/course/ById/{cId}")
-	public ResponseEntity<?> getCourseBycId(@PathVariable int cId){
-		
-		return cSer.getCourseBycId(cId);
-	}
 
-	@PostMapping("/course")
-	public ResponseEntity<?> addCourse(@RequestBody Courses course) {
+    // Get Faculty by Course ID
+    @GetMapping("/course/faculty/{cId}")
+    public ResponseEntity<?> getFacultyByCourseId(@PathVariable int cId) {
 
-		return cSer.addCourse(course);
-	}
+        List<Faculty> data = cSer.getFacultyByCourseId(cId);
 
-	@PutMapping("/course")
-	public ResponseEntity<?> updateCourse(@RequestBody Courses course) {
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Faculty list fetched successfully")
+                        .data(data)
+                        .build()
+        );
+    }
 
-		return cSer.updateCourse(course);
-	}
+    // Get Courses by Faculty ID
+    @GetMapping("/course/{fId}")
+    public ResponseEntity<?> getCourseByfId(@PathVariable int fId) {
 
-	@DeleteMapping("/course/{cId}")
-	public ResponseEntity<?> deleteCourse(@PathVariable int cId) {
+        List<CourseDTO> data = cSer.getCourseByfId(fId);
 
-		return cSer.deleteCourse(cId);
-	}
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Courses fetched successfully")
+                        .data(data)
+                        .build()
+        );
+    }
+
+    // Get Course by Course ID
+    @GetMapping("/course/ById/{cId}")
+    public ResponseEntity<?> getCourseBycId(@PathVariable int cId) {
+
+        CourseDTO data = cSer.getCourseBycId(cId);
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Course fetched successfully")
+                        .data(data)
+                        .build()
+        );
+    }
+
+    // Add Course
+    @PostMapping("/course")
+    public ResponseEntity<?> addCourse(@RequestBody Courses course) {
+
+        CourseDTO data = cSer.addCourse(course);
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Course saved successfully")
+                        .data(data)
+                        .build()
+        );
+    }
+
+    // Update Course
+    @PutMapping("/course/{cId}")
+    public ResponseEntity<?> updateCourse(@PathVariable int cId, @RequestBody Courses course) {
+
+        CourseDTO data = cSer.updateCourse(cId, course);
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg("Course updated successfully")
+                        .data(data)
+                        .build()
+        );
+    }
+
+    // Delete Course
+    @DeleteMapping("/course/{cId}")
+    public ResponseEntity<?> deleteCourse(@PathVariable int cId) {
+
+        String msg = cSer.deleteCourse(cId);
+
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .success(true)
+                        .msg(msg)
+                        .build()
+        );
+    }
 }

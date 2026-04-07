@@ -1,116 +1,27 @@
 package com.springboot.services;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import com.springboot.Repository.CourseAssignmentDao;
-import com.springboot.Repository.CoursesDao;
-import com.springboot.Entity.CourseAssignment;
+import com.springboot.DTO.CourseDTO;
 import com.springboot.Entity.Courses;
+import com.springboot.Entity.CourseAssignment;
 import com.springboot.Entity.Faculty;
 
-@Service
-public class CourseService {
+public interface CourseService {
 
-	@Autowired
-	private CoursesDao cDao;
+    Map<String, Object> getAllCourses(Map<String, Object> filter);
 
-	@Autowired
-	private CourseAssignmentDao caDao;
+    List<Faculty> getFacultyByCourseId(int cId);
 
-	public List<Courses> getAllCourses() {
+    List<CourseDTO> getCourseByfId(int fId);
 
-		return cDao.findAll();
-	}
-	
-	public List<Faculty> getFacultyByCourseId(int cId){
-		
-		Courses course = cDao.findById(cId).orElseThrow(() -> new RuntimeException("Course not found"));
+    CourseDTO getCourseBycId(int cId);
 
-	    List<CourseAssignment> assignments = caDao.findByCoursesId(course);
+    CourseDTO addCourse(Courses course);
 
-	    return assignments.stream()
-	                      .map(CourseAssignment::getFacultyId)
-	                      .collect(Collectors.toList());
-	}
-	
-	public List<Courses> getCourseByfId(int fId) {
-        List<CourseAssignment> assignments = caDao.findByFacultyId_fId(fId);
+    CourseDTO updateCourse(int cId, Courses course);
 
-        return assignments.stream()
-                .map(CourseAssignment::getCoursesId)
-                .collect(Collectors.toList());
-    }
-
-	public ResponseEntity<?> getCourseBycId(int cId) {
-
-		Optional<Courses> exist = cDao.findById(cId);
-
-		if (exist.isPresent()) {
-			Courses course = exist.get();
-
-			return ResponseEntity.ok(course);
-		} else {
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Course not found!");
-		}
-
-	}
-
-	public ResponseEntity<?> addCourse(Courses course) {
-
-		Courses exist = cDao.findBycName(course.getcName());
-		if (exist == null && course != null) {
-
-			cDao.save(course);
-			return ResponseEntity.ok("Course added.");
-		} else {
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something went wrong");
-		}
-	}
-
-	public ResponseEntity<?> updateCourse(Courses course) {
-
-		Optional<Courses> exist = cDao.findById(course.getcId());
-		if (exist.isPresent()) {
-
-			Courses newCourse = exist.get();
-
-			newCourse.setcId(course.getcId());
-			newCourse.setcName(course.getcName());
-			newCourse.setcDescription(course.getcDescription());
-			newCourse.setcDuration(course.getcDuration());
-			newCourse.setStartDate(course.getStartDate());
-			newCourse.setEndDate(course.getEndDate());
-
-			cDao.save(newCourse);
-			return ResponseEntity.ok("course updated.");
-		} else {
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("course not found!");
-		}
-	}
-
-	public ResponseEntity<?> deleteCourse(int cId) {
-
-		Optional<Courses> exist = cDao.findById(cId);
-		if (exist.isPresent()) {
-			Courses course = exist.get();
-
-			cDao.delete(course);
-			return ResponseEntity.ok("course deleted.");
-		} else {
-
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("course not found");
-		}
-	}
-
+    String deleteCourse(int cId);
 
 }

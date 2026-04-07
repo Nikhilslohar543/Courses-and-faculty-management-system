@@ -10,7 +10,7 @@ import com.springboot.Entity.Courses;
 import com.springboot.Entity.Faculty;
 
 @Repository
-public interface CoursesDao extends JpaRepository<Courses, Integer>, JpaSpecificationExecutor<Faculty> {
+public interface CoursesDao extends JpaRepository<Courses, Integer>, JpaSpecificationExecutor<Courses> {
 	
 	List<Courses> findBycId(Faculty faculty);
 
