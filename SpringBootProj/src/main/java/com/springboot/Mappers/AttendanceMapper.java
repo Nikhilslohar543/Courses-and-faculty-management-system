@@ -13,6 +13,6 @@ public interface AttendanceMapper {
     @Mapping(source = "facultyId", target = "facultyId.fId")
     Attendance toEntity(AttendanceDTO dto);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "facultyId", ignore = true)
     void updateAttendance(AttendanceDTO dto, @MappingTarget Attendance attendance);
 }

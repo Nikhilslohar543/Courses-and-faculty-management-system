@@ -77,6 +77,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         attendanceMapper.updateAttendance(dto, existing);
         existing.setFacultyId(faculty);
+        existing.setFacultyId(faculty);
 
         Attendance updated = aDao.save(existing);
 
