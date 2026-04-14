@@ -48,10 +48,19 @@ public class FacultyServiceImpl implements FacultyService {
         List<Faculty> facultyList = fDao.findAll(specification);
 
         List<FacultyDTO> list = facultyList.stream()
-                .map(f -> facultyMapper.toDTO(f)).collect(Collectors.toList());
+                .map(f -> {
+                    FacultyDTO dto = facultyMapper.toDTO(f);
+
+                    dto.setFName(f.getfName());
+                    dto.setFEmail(f.getfEmail());
+                    dto.setFRole(f.getfRole());
+                    dto.setFUsername(f.getfUsername());
+
+                    return dto;
+                }).collect(Collectors.toList());
 
         Map<String, Object> data = new HashMap<>();
-        data.put("data", list);
+        data.put("list", list);
         return data;
 
     }

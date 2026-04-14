@@ -11,12 +11,10 @@ import org.mapstruct.*;
 public interface FacultyMapper {
 
     // ✅ Entity → DTO
-    @Mappings({
-            @Mapping(source = "gender", target = "FGender"),
-            @Mapping(source = "mobno", target = "mobNo"),
-            @Mapping(source = "courseAssignment", target = "courseAssignments"),
-            @Mapping(source = "attendance", target = "attendanceDTOS")
-    })
+    @Mapping(source = "gender", target = "FGender")
+    @Mapping(source = "mobno", target = "mobNo")
+    @Mapping(source = "courseAssignment", target = "courseAssignments")
+    @Mapping(source = "attendance", target = "attendanceDTOS")
     FacultyDTO toDTO(Faculty faculty);
 
 

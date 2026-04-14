@@ -30,15 +30,15 @@ public class FacultyCon {
     @Autowired
     private FacultyService facultyService;
 
-    @GetMapping("/faculty")
+    @PostMapping("/getAllFacultiesByFilter")
     public ResponseEntity<?> getFaculty(@RequestBody Map<String, Object> filter) {
 
-        Map<String, Object> data = facultyService.getAllFaculties(filter);
+        Map<String, Object> facultyList = facultyService.getAllFaculties(filter);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .success(true)
                         .msg("Faculty fetched successfully")
-                        .data(data)
+                        .data(facultyList)
                         .build()
         );
     }
